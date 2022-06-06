@@ -4,3 +4,9 @@
   max-width: 350px;
   margin: 0 auto;
 }
+
+.Player-list {
+  display: grid;
+  gap: 14px;
+  padding: 0;
+}

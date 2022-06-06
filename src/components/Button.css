@@ -1,8 +1,8 @@
 .Button {
   padding: 10px;
   background-color: skyblue;
-  font-family: "Josefin Sans", sans-serif;
-  font-weight: bolder;
+  color: white;
+  border: none;
   border: none;
   border-radius: 5px;
   width: 100%;

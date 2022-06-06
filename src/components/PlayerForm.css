@@ -1,4 +1,4 @@
 .PlayerForm {
   display: grid;
-  font-family: inherit;
+  gap: 12px;
 }

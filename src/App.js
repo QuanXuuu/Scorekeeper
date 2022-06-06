@@ -1,22 +1,64 @@
 import "./App.css";
-import Button from "./Button.js";
-import Player from "./Player.js";
-import PlayerForm from "./PlayerForm.js";
-import Heading from "./Heading.js";
+import { useState } from "react";
+import Button from "./components/Button.js";
+import Player from "./components/Player.js";
+import PlayerForm from "./components/PlayerForm.js";
+import Heading from "./components/Heading.js";
 
-function App() {
+export default function App() {
+  const [players, setPlayers] = useState([]);
+
+  function createPlayer(player) {
+    setPlayers([...players, player]);
+  }
+
+  function increaseScore(index) {
+    const currentPlayer = players[index];
+    setPlayers([
+      ...players.slice(0, index),
+      { ...currentPlayer, score: currentPlayer.score + 10 },
+      ...players.slice(index + 1),
+    ]);
+  }
+
+  function decreaseScore(index) {
+    const currentPlayer = players[index];
+    setPlayers([
+      ...players.slice(0, index),
+      { ...currentPlayer, score: currentPlayer.score - 10 },
+      ...players.slice(index + 1),
+    ]);
+  }
+
+  function resetAllScores() {
+    setPlayers(
+      players.map((player) => {
+        return { ...player, score: 0 };
+      })
+    );
+  }
+
+  function resetAllPlayers() {
+    setPlayers([]);
+  }
+
   return (
     <div className="App">
-      <h1 className="Heading">Scorekeeper Version A</h1>
-      <ul role="list">
-        <Player name="John Doe" score={20} />
-        <Player name="Jane Doe" score={30} />
+      <Heading />
+      <ul className="Player-list" role="list">
+        {players.map((player, index) => (
+          <Player
+            key={player.name}
+            name={player.name}
+            score={player.score}
+            onIncreaseScore={() => increaseScore(index)}
+            onDecreaseScore={() => decreaseScore(index)}
+          />
+        ))}
       </ul>
-      <Button text="Reset scores" />
-      <Button text="Reset all" />
-      <PlayerForm />
+      <Button onClick={resetAllScores}>Reset scores</Button>
+      <Button onClick={resetAllPlayers}>Reset all</Button>
+      <PlayerForm onCreatePlayer={createPlayer} />
     </div>
   );
 }
-
-export default App;
