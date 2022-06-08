@@ -1,12 +1,14 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getFromLocal, setToLocal } from "./lib/localStorage";
 import Button from "./components/Button.js";
 import Player from "./components/Player.js";
 import PlayerForm from "./components/PlayerForm.js";
 import Heading from "./components/Heading.js";
 
 export default function App() {
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState(getFromLocal("players") ?? []);
+  useEffect(() => setToLocal("players", players), [players]);
 
   function createPlayer(player) {
     setPlayers([...players, player]);
