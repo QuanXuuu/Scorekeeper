@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
+import { getFromLocal, setToLocal } from "./lib/localStorage";
+import Button from "./components/Button.js";
+import Player from "./components/Player.js";
+import PlayerForm from "./components/PlayerForm.js";
+import Heading from "./components/Heading.js";
 
-function App() {
+export default function App() {
+  const [players, setPlayers] = useState(getFromLocal("players") ?? []);
+  useEffect(() => setToLocal("players", players), [players]);
+
+  function createPlayer(player) {
+    setPlayers([...players, player]);
+  }
+
+  function increaseScore(index) {
+    const currentPlayer = players[index];
+    setPlayers([
+      ...players.slice(0, index),
+      { ...currentPlayer, score: currentPlayer.score + 10 },
+      ...players.slice(index + 1),
+    ]);
+  }
+
+  function decreaseScore(index) {
+    const currentPlayer = players[index];
+    setPlayers([
+      ...players.slice(0, index),
+      { ...currentPlayer, score: currentPlayer.score - 10 },
+      ...players.slice(index + 1),
+    ]);
+  }
+
+  function resetAllScores() {
+    setPlayers(
+      players.map((player) => {
+        return { ...player, score: 0 };
+      })
+    );
+  }
+
+  function resetAllPlayers() {
+    setPlayers([]);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Heading />
+      <ul className="Player-list" role="list">
+        {players.map((player, index) => (
+          <Player
+            key={player.name}
+            name={player.name}
+            score={player.score}
+            onIncreaseScore={() => increaseScore(index)}
+            onDecreaseScore={() => decreaseScore(index)}
+          />
+        ))}
+      </ul>
+      <Button onClick={resetAllScores}>Reset scores</Button>
+      <Button onClick={resetAllPlayers}>Reset all</Button>
+      <PlayerForm onCreatePlayer={createPlayer} />
     </div>
   );
 }
-
-export default App;
