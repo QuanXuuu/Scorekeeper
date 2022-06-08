@@ -1,4 +1,5 @@
-import "./PlayerForm.css";
+import styled from "styled-components";
+import Button from "./Button";
 
 export default function PlayerForm({ onCreatePlayer }) {
   function handleSubmit(event) {
@@ -12,10 +13,15 @@ export default function PlayerForm({ onCreatePlayer }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="PlayerForm">
+    <AppForm onSubmit={handleSubmit} className="PlayerForm">
       <label htmlFor="name">Add Name:</label>
       <input id="name" type="text" name="name" />
-      <button>Create player</button>
-    </form>
+      <Button>Create player</Button>
+    </AppForm>
   );
 }
+
+const AppForm = styled.form`
+  display: grid;
+  gap: 12px;
+`;

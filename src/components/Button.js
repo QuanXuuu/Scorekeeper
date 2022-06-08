@@ -1,9 +1,20 @@
-import "./Button.css";
+import styled from "styled-components";
 
-export default function Button({ onClick, children }) {
+function Button({ onClick, children }) {
   return (
-    <button onClick={onClick} className="Button">
+    <ButtonLarge onClick={onClick} className="Button">
       {children}
-    </button>
+    </ButtonLarge>
   );
 }
+
+const ButtonLarge = styled.button`
+  padding: 10px;
+  background-color: #0099cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+`;
+
+export default Button;

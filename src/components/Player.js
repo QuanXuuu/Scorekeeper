@@ -1,4 +1,5 @@
-import "./Player.css";
+import Button from "./Button";
+import styled from "styled-components";
 
 export default function Player({
   name,
@@ -7,11 +8,31 @@ export default function Player({
   onDecreaseScore,
 }) {
   return (
-    <li className="Player">
-      <span className="Player__name"> {name} </span>
-      <button onClick={onDecreaseScore}>-</button>
+    <AppPlayer className="Player">
+      <AppPlayerName className="Player__name"> {name} </AppPlayerName>
+      <ButtonSmall onClick={onDecreaseScore}>-</ButtonSmall>
       {score}
-      <button onClick={onIncreaseScore}>+</button>
-    </li>
+      <ButtonSmall onClick={onIncreaseScore}>+</ButtonSmall>
+    </AppPlayer>
   );
 }
+
+const AppPlayer = styled.li`
+  list-style: none;
+  display: flex;
+  justify-content: end;
+  gap: 14px;
+  font-weight: bolder;
+`;
+
+const AppPlayerName = styled.span`
+  margin-right: auto;
+`;
+
+const ButtonSmall = styled.button`
+  background-color: #0099cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+`;
