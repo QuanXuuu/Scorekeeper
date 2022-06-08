@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Header from "./components/Header";
-import Button from "./components/Button";
-import Player from "./components/Player.js";
-import PlayerForm from "./components/PlayerForm.js";
+import Header from "./components/Header/Header";
+import Button from "./components/Button/Button";
+import Player from "./components/Player/Player";
+import PlayerForm from "./components/PlayerForm/PlayerForm";
 
 import { useEffect, useState } from "react";
 import { getFromLocal, setToLocal } from "./lib/localStorage";
