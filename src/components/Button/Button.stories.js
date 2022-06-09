@@ -1,13 +1,13 @@
-import Button from './Button';
+import Button from "./Button.js";
 
 export default {
-  title: 'Components/Button',
+  title: "Component/Button",
   component: Button,
 
   decorators: [
     (Story) => {
       return (
-        <div style={{ padding: '3em', maxWidth: '300px' }}>
+        <div>
           <Story />
         </div>
       );
@@ -15,6 +15,4 @@ export default {
   ],
 };
 
-};
-
-export const Default = () => <Button >Click here</Button>;
+export const Default = () => <Button>Reset Scores</Button>;
