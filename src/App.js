@@ -1,10 +1,12 @@
-import "./App.css";
+import styled from "styled-components";
+
+import Header from "./components/Header/Header";
+import Button from "./components/Button/Button";
+import Player from "./components/Player/Player";
+import PlayerForm from "./components/PlayerForm/PlayerForm";
+
 import { useEffect, useState } from "react";
 import { getFromLocal, setToLocal } from "./lib/localStorage";
-import Button from "./components/Button.js";
-import Player from "./components/Player.js";
-import PlayerForm from "./components/PlayerForm.js";
-import Heading from "./components/Heading.js";
 
 export default function App() {
   const [players, setPlayers] = useState(getFromLocal("players") ?? []);
@@ -45,9 +47,9 @@ export default function App() {
   }
 
   return (
-    <div className="App">
-      <Heading />
-      <ul className="Player-list" role="list">
+    <AppContainer className="App">
+      <Header />
+      <AppPlayers className="Player-list" role="list">
         {players.map((player, index) => (
           <Player
             key={player.name}
@@ -57,10 +59,28 @@ export default function App() {
             onDecreaseScore={() => decreaseScore(index)}
           />
         ))}
-      </ul>
+      </AppPlayers>
       <Button onClick={resetAllScores}>Reset scores</Button>
       <Button onClick={resetAllPlayers}>Reset all</Button>
       <PlayerForm onCreatePlayer={createPlayer} />
-    </div>
+    </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  display: grid;
+  gap: 20px;
+  max-width: 350px;
+  margin: 0 auto;
+  border: 1px solid black;
+  border-radius: 5%;
+  box-shadow: 5px 10px #888888;
+  background-color: white;
+  padding: 20px;
+`;
+
+const AppPlayers = styled.ul`
+  display: grid;
+  gap: 14px;
+  padding: 0;
+`;
